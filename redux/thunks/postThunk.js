@@ -53,3 +53,7 @@ export const fetchTrendingPostThunk = () => async (dispatch) => {
 		await dispatch(fetchTrendingPostFailedAction(err));
 	}
 };
+
+export const fetchTrendingPostResetedThunk = () => (dispatch) => {
+	dispatch(fetchTrendingPostResetedAction());
+};
