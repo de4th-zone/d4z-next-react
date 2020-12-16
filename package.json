@@ -6,7 +6,7 @@
 		"build": "next build",
 		"start": "next start -p $PORT",
 		"export": "next export",
-		"heroku-postbuild": "npm run build"
+		"postbuild": "next-on-netlify"
 	},
 	"dependencies": {
 		"axios": "0.21.0",
