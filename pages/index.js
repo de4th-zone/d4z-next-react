@@ -28,16 +28,14 @@ const Index = ({ fetchPost, fetchMorePostThunk, fetchTrendingPost, fetchCategory
 				<meta property="og:title" content="Home | De4th Zone" />
 				<meta property="og:description" content="Website programing, software, hacking,..." />
 				<meta property="og:url" content="https://de4thzone.com" />
-				<meta property="og:image" content="/d4z_1.png" />
-				<meta property="og:image:width" content="256" />
-				<meta property="og:image:height" content="100" />
+				<meta property="og:image" content="https://de4thzone.com/d4z_1.png" />
 				<meta name="twitter:title" content="Home | De4th Zone" />
 				<meta name="twitter:description" content="Website programing, software, hacking,..." />
 				<meta name="twitter:url" content="https://de4thzone.com" />
 				<meta name="twitter:site" content="https://twitter.com/de4th_zone" />
 				<meta name="twitter:creator" content="@de4th_zone" />
 				<meta name="twitter:card" content="summary_large_image" />
-				<meta name="twitter:image" content="/d4z_1.png" />
+				<meta name="twitter:image" content="https://de4thzone.com/d4z_1.png" />
 			</Head>
 			<NavBar fetchCategory={fetchCategory} />
 			<Carousel />
