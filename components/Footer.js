@@ -5,7 +5,7 @@ const Footer = (props) => {
 		<footer className="py-5 mt-5 bg-custom">
 			<div className="container">
 				<div className="row">
-					<div className="col-12 col-md">
+					<div className="col-12 col-md mb-4">
 						<img
 							className="rounded-circle mb-2"
 							src="https://avatars1.githubusercontent.com/u/57558120?s=460&u=edcf8c9d01f9f5b76c1c6e30d6c775ec147cc434&v=4"
@@ -13,9 +13,9 @@ const Footer = (props) => {
 							height={66}
 							alt="logo"
 						/>
-						<small className="d-block mb-3 text-light">Copyright © Your Website 2020</small>
+						<small className="d-block text-light">Copyright © Your Website 2020</small>
 					</div>
-					<div className="col-6 col-md">
+					<div className="col-6 col-md mb-4">
 						<h5 className="text-light">Features</h5>
 						<ul className="list-unstyled text-small mb-0">
 							<li>
@@ -50,7 +50,7 @@ const Footer = (props) => {
 							</li>
 						</ul>
 					</div>
-					<div className="col-6 col-md">
+					<div className="col-6 col-md mb-4">
 						<h5 className="text-light">Resources</h5>
 						<ul className="list-unstyled text-small mb-0">
 							<li>
@@ -75,7 +75,7 @@ const Footer = (props) => {
 							</li>
 						</ul>
 					</div>
-					<div className="col-6 col-md">
+					<div className="col-6 col-md mb-4">
 						<h5 className="text-light">About</h5>
 						<ul className="list-unstyled text-small mb-0">
 							<li>
