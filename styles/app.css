@@ -1,0 +1,28 @@
+body {
+	padding-top: 56px;
+}
+.carousel-item img {
+	max-height: 65vh;
+	min-height: 300px;
+	background: no-repeat center center scroll;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+.card-text {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.sticky-top {
+	top: 72px;
+}
+.badge {
+	border: 1px solid rgba(230, 230, 230, 1);
+	font-weight: 400;
+}
+
+.bg-custom {
+	background-color: rgba(0, 0, 0, 0.9);
+}
