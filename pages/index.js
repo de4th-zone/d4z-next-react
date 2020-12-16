@@ -29,6 +29,8 @@ const Index = ({ fetchPost, fetchMorePostThunk, fetchTrendingPost, fetchCategory
 				<meta property="og:description" content="Website programing, software, hacking,..." />
 				<meta property="og:url" content="https://de4thzone.com" />
 				<meta property="og:image" content="/d4z_1.png" />
+				<meta property="og:image:width" content="256" />
+				<meta property="og:image:height" content="100" />
 				<meta name="twitter:title" content="Home | De4th Zone" />
 				<meta name="twitter:description" content="Website programing, software, hacking,..." />
 				<meta name="twitter:url" content="https://de4thzone.com" />
