@@ -15,9 +15,9 @@ module.exports = (phase) => {
 		API_URL: (() => {
 			if (isDev) return 'http://nguyenthucofficial.com/api';
 			if (isProd) {
-				return 'http://nguyenthucofficial.com/api';
+				return 'https://d4z-laravel-api.herokuapp.com/public/api';
 			}
-			if (isStaging) return 'http://nguyenthucofficial.com/api';
+			if (isStaging) return 'https://d4z-laravel-api.herokuapp.com/public/api';
 			return 'API_URL:not (isDev,isProd && !isStaging,isProd && isStaging)';
 		})(),
 		RESTURL_SESSIONS: (() => {
