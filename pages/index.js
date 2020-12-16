@@ -113,14 +113,14 @@ const Index = ({
 			<header className="mb-4">
 				<Carousel>
 					<Carousel.Item>
-						<img className="d-block w-100" src="http://placehold.it/1900x1080" alt="First slide" />
+						<img className="d-block w-100" src="https://placehold.it/1900x1080" alt="First slide" />
 						<Carousel.Caption>
 							<h3>First slide label</h3>
 							<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 						</Carousel.Caption>
 					</Carousel.Item>
 					<Carousel.Item>
-						<img className="d-block w-100" src="http://placehold.it/1900x1080" alt="Third slide" />
+						<img className="d-block w-100" src="https://placehold.it/1900x1080" alt="Third slide" />
 
 						<Carousel.Caption>
 							<h3>Second slide label</h3>
@@ -128,7 +128,7 @@ const Index = ({
 						</Carousel.Caption>
 					</Carousel.Item>
 					<Carousel.Item>
-						<img className="d-block w-100" src="http://placehold.it/1900x1080" alt="Third slide" />
+						<img className="d-block w-100" src="https://placehold.it/1900x1080" alt="Third slide" />
 
 						<Carousel.Caption>
 							<h3>Third slide label</h3>
@@ -167,7 +167,7 @@ const Index = ({
 													<div className="card">
 														<div className="row no-gutters">
 															<div className="col-3">
-																<img src="http://placehold.it/666x666" className="img-fluid" alt={node.title} />
+																<img src="https://placehold.it/666x666" className="img-fluid" alt={node.title} />
 															</div>
 															<div className="col-9">
 																<div className="card-block px-2">
@@ -254,7 +254,7 @@ const Index = ({
 															<div className="card">
 																<div className="row no-gutters">
 																	<div className="col-3">
-																		<img src="http://placehold.it/666x666" className="img-fluid" alt={node.title} />
+																		<img src="https://placehold.it/666x666" className="img-fluid" alt={node.title} />
 																	</div>
 																	<div className="col-9">
 																		<div className="card-block px-2">
