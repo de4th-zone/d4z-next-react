@@ -401,7 +401,7 @@ const Index = ({
 	);
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(async ({ store, res }) => {
+export const getStaticProps = wrapper.getStaticProps(async ({ store, res }) => {
 	await store.dispatch(fetchCategoryThunk());
 	await store.dispatch(fetchTrendingPostThunk());
 	await store.dispatch(fetchPostThunk());
