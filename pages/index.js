@@ -1,20 +1,19 @@
-import React, { useEffect } from 'react';
-import Link from 'next/link';
+import React from 'react';
 import Head from 'next/head';
 import { connect } from 'react-redux';
-import { wrapper } from '../redux/store';
-import { fetchPostThunk, fetchMorePostThunk, fetchTrendingPostThunk } from '../redux/thunks/postThunk';
-import { fetchCategoryThunk } from '../redux/thunks/categoryThunk';
 import isEmpty from '../helpers/isEmpty';
+import { wrapper } from '../redux/store';
+import { fetchCategoryThunk } from '../redux/thunks/categoryThunk';
+import { fetchTagThunk } from '../redux/thunks/tagThunk';
+import { fetchTrendingPostThunk, fetchPostThunk, fetchMorePostThunk } from '../redux/thunks/postThunk';
 import NavBar from '../components/NavBar';
 import Carousel from '../components/Carousel';
 import PostCard from '../components/PostCard';
 import Loading from '../components/Loading';
 import Footer from '../components/Footer';
-import ListGroup from '../components/ListGroup';
-import Badge from '../components/Badge';
+import SideBar from '../components/SideBar';
 
-const Index = ({ fetchPost, fetchMorePostThunk, fetchTrendingPost, fetchCategory }) => {
+const Index = ({ fetchTag, fetchCategory, fetchTrendingPost, fetchPost, fetchMorePostThunk }) => {
 	const handleClick = (page) => {
 		fetchMorePostThunk(page);
 	};
@@ -40,7 +39,7 @@ const Index = ({ fetchPost, fetchMorePostThunk, fetchTrendingPost, fetchCategory
 			<NavBar fetchCategory={fetchCategory} />
 			<Carousel />
 			<div className="container">
-				<h1 className="mb-4">Trending posts</h1>
+				<h1 className="my-4">Trending posts</h1>
 				<div className="row">
 					{fetchTrendingPost.isLoading ? (
 						<div className="col-12 mb-4">
@@ -58,7 +57,13 @@ const Index = ({ fetchPost, fetchMorePostThunk, fetchTrendingPost, fetchCategory
 										<>
 											{fetchTrendingPost.post.map((node) => (
 												<div className="col-12 col-md-6 col-lg-4 mb-4" key={node.id}>
-													<PostCard title={node.title} excerpt={node.excerpt} />
+													<PostCard
+														title={node.title}
+														excerpt={node.excerpt}
+														created_at={node.created_at}
+														to="/post/[id]/[slug]"
+														as={`/post/${node.id}/${node.slug}`}
+													/>
 												</div>
 											))}
 										</>
@@ -70,13 +75,7 @@ const Index = ({ fetchPost, fetchMorePostThunk, fetchTrendingPost, fetchCategory
 				</div>
 				<div className="row">
 					<div className="col-lg-3 order-lg-2">
-						<div className="sticky-top">
-							<h3 className="mb-2">Categories{process.env.API_URL}</h3>
-							<ListGroup fetchCategory={fetchCategory} />
-							<h3 className="my-2">Top tags</h3>
-							<Badge as="a" value="Programing" to="/programing" />
-							<Badge as="a" value="Software" to="/software" />
-						</div>
+						<SideBar fetchCategory={fetchCategory} fetchTag={fetchTag} />
 					</div>
 					<div className="col-lg-9 order-lg-1">
 						<h1 className="mb-4">New posts</h1>
@@ -97,7 +96,12 @@ const Index = ({ fetchPost, fetchMorePostThunk, fetchTrendingPost, fetchCategory
 												<>
 													{fetchPost.post.map((node) => (
 														<div className="col-12 mb-4" key={node.id}>
-															<PostCard title={node.title} excerpt={node.excerpt} />
+															<PostCard
+																title={node.title}
+																excerpt={node.excerpt}
+																created_at={node.created_at}
+																to={`/post/${node.id}/${node.slug}`}
+															/>
 														</div>
 													))}
 												</>
@@ -131,21 +135,20 @@ const Index = ({ fetchPost, fetchMorePostThunk, fetchTrendingPost, fetchCategory
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
 	await store.dispatch(fetchCategoryThunk());
+	await store.dispatch(fetchTagThunk());
 	await store.dispatch(fetchTrendingPostThunk());
 	await store.dispatch(fetchPostThunk());
 });
 
 const mapStateToProps = (state) => ({
-	fetchPost: state.posts.fetchPost,
+	fetchCategory: state.categories.fetchCategory,
+	fetchTag: state.tags.fetchTag,
 	fetchTrendingPost: state.posts.fetchTrendingPost,
-	fetchCategory: state.categories.fetchCategory
+	fetchPost: state.posts.fetchPost
 });
 
 const mapDispatchToProps = {
-	fetchPostThunk,
-	fetchMorePostThunk,
-	fetchTrendingPostThunk,
-	fetchCategoryThunk
+	fetchMorePostThunk
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

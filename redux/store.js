@@ -31,6 +31,6 @@ const reducer = (state, action) => {
 		? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
 		: compose; */
 
-export const store = () => createStore(reducer, bindMiddleware([thunk]));
+export const store = () => createStore(rootReducer, bindMiddleware([thunk]));
 
 export const wrapper = createWrapper(store);

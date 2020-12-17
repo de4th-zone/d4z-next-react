@@ -8,7 +8,11 @@ import {
 	fetchTrendingPostRequestedAction,
 	fetchTrendingPostSucceedAction,
 	fetchTrendingPostFailedAction,
-	fetchTrendingPostResetedAction
+	fetchTrendingPostResetedAction,
+	singlePostRequestedAction,
+	singlePostSucceedAction,
+	singlePostFailedAction,
+	singlePostResetedAction
 } from '../actions/postAction';
 import axios from 'axios';
 
@@ -58,4 +62,20 @@ export const fetchTrendingPostThunk = () => async (dispatch) => {
 
 export const fetchTrendingPostResetedThunk = () => (dispatch) => {
 	dispatch(fetchTrendingPostResetedAction());
+};
+
+export const singlePostThunk = (id) => async (dispatch) => {
+	try {
+		dispatch(singlePostRequestedAction());
+		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${id}`);
+		if (res.data.success) {
+			dispatch(singlePostSucceedAction(res.data.data));
+		}
+	} catch (err) {
+		dispatch(singlePostFailedAction(err.message));
+	}
+};
+
+export const singlePostResetedThunk = () => (dispatch) => {
+	dispatch(singlePostResetedAction());
 };

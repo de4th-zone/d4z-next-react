@@ -8,7 +8,11 @@ import {
 	FETCH_TRENDING_POST_REQUESTED,
 	FETCH_TRENDING_POST_SUCCEED,
 	FETCH_TRENDING_POST_FAILED,
-	FETCH_TRENDING_POST_RESETED
+	FETCH_TRENDING_POST_RESETED,
+	SINGLE_POST_REQUESTED,
+	SINGLE_POST_SUCCEED,
+	SINGLE_POST_FAILED,
+	SINGLE_POST_RESETED
 } from '../constants/postConstant';
 import { concat } from 'lodash';
 import { HYDRATE } from 'next-redux-wrapper';
@@ -29,16 +33,29 @@ const initialState = {
 		isLoading: true,
 		isError: false,
 		errorMessage: {}
+	},
+	singlePost: {
+		post: {
+			user: {
+				role: {}
+			},
+			category: {},
+			tag: {}
+		},
+		isLoading: true,
+		isError: false,
+		errorMessage: {}
 	}
 };
 const postReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case HYDRATE:
-			const { fetchPost, fetchTrendingPost } = action.payload;
+			const { fetchPost, fetchTrendingPost, singlePost } = action.payload.posts;
 			return {
 				...state,
 				fetchPost,
-				fetchTrendingPost
+				fetchTrendingPost,
+				singlePost
 			};
 		case FETCH_POST_REQUESTED:
 			return {
@@ -143,6 +160,44 @@ const postReducer = (state = initialState, action) => {
 					isLoading: true,
 					isError: false,
 					errorMessage: []
+				}
+			};
+		//
+		case SINGLE_POST_REQUESTED:
+			return {
+				...state,
+				singlePost: {
+					...state.singlePost,
+					isLoading: true
+				}
+			};
+		case SINGLE_POST_SUCCEED:
+			return {
+				...state,
+				singlePost: {
+					...state.singlePost,
+					post: action.payload,
+					isLoading: false
+				}
+			};
+		case SINGLE_POST_FAILED:
+			return {
+				...state,
+				singlePost: {
+					...state.singlePost,
+					isError: true,
+					errorMessage: action.payload
+				}
+			};
+		case SINGLE_POST_RESETED:
+			return {
+				...state,
+				singlePost: {
+					...state.singlePost,
+					post: {},
+					isLoading: true,
+					isError: false,
+					errorMessage: {}
 				}
 			};
 		default:

@@ -7,12 +7,12 @@ const App = ({ Component, pageProps }) => {
 	return <Component {...pageProps} />;
 };
 
-/* App.getInitialProps = async ({ Component, ctx }) => {
+App.getInitialProps = async ({ Component, ctx }) => {
 	return {
 		pageProps: {
 			...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {})
 		}
 	};
-}; */
+};
 
 export default wrapper.withRedux(App);

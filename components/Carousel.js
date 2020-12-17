@@ -3,7 +3,7 @@ import Carousel from 'react-bootstrap/Carousel';
 
 const CarouselTop = (props) => {
 	return (
-		<header className="mb-4">
+		<header>
 			<Carousel>
 				<Carousel.Item>
 					<img className="d-block w-100" src="https://placehold.it/1900x1080" alt="First slide" />

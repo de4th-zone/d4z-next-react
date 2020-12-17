@@ -8,7 +8,11 @@ import {
 	FETCH_TRENDING_POST_REQUESTED,
 	FETCH_TRENDING_POST_SUCCEED,
 	FETCH_TRENDING_POST_FAILED,
-	FETCH_TRENDING_POST_RESETED
+	FETCH_TRENDING_POST_RESETED,
+	SINGLE_POST_REQUESTED,
+	SINGLE_POST_SUCCEED,
+	SINGLE_POST_FAILED,
+	SINGLE_POST_RESETED
 } from '../constants/postConstant';
 
 export const fetchPostRequestedAction = () => ({
@@ -52,4 +56,19 @@ export const fetchTrendingPostFailedAction = (payload) => ({
 });
 export const fetchTrendingPostResetedAction = () => ({
 	type: FETCH_TRENDING_POST_RESETED
+});
+
+export const singlePostRequestedAction = () => ({
+	type: SINGLE_POST_REQUESTED
+});
+export const singlePostSucceedAction = (payload) => ({
+	type: SINGLE_POST_SUCCEED,
+	payload
+});
+export const singlePostFailedAction = (payload) => ({
+	type: SINGLE_POST_FAILED,
+	payload
+});
+export const singlePostResetedAction = () => ({
+	type: SINGLE_POST_RESETED
 });

@@ -13,6 +13,7 @@
 		"bootstrap": "4.5.3",
 		"immer": "8.0.0",
 		"lodash": "4.17.20",
+		"moment": "^2.29.1",
 		"next": "10.0.3",
 		"next-on-netlify": "^2.6.3",
 		"next-redux-wrapper": "^6.0.2",
