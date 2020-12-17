@@ -15,6 +15,7 @@ class MyDocument extends Document {
 					<meta name="theme-color" content="#000000" />
 					<link rel="apple-touch-icon" href="/logo192.jpg" />
 					<meta name="apple-mobile-web-app-status-bar" content="#000000" />
+					<link rel="sitemap" type="application/xml" href="/sitemap.xml"></link>
 					<link
 						rel="stylesheet"
 						href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"

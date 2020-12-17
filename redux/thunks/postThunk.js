@@ -15,7 +15,7 @@ import axios from 'axios';
 export const fetchPostThunk = () => async (dispatch) => {
 	try {
 		await dispatch(fetchPostRequestedAction());
-		const res = await axios.get(`${process.env.API_URL}/posts?per_page=${process.env.PER_PAGE_HOME}`);
+		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?per_page=${process.env.PER_PAGE_HOME}`);
 		if (res.data.success) {
 			await dispatch(fetchPostSucceedAction(res.data.data, res.data.pagination.current_page));
 		}
@@ -27,7 +27,9 @@ export const fetchPostThunk = () => async (dispatch) => {
 export const fetchMorePostThunk = (page) => async (dispatch) => {
 	try {
 		await dispatch(fetchMorePostRequestedAction());
-		const res = await axios.get(`${process.env.API_URL}/posts?per_page=${process.env.PER_PAGE_HOME}&page=${page}`);
+		const res = await axios.get(
+			`${process.env.NEXT_PUBLIC_API_URL}/posts?per_page=${process.env.PER_PAGE_HOME}&page=${page}`
+		);
 		if (res.data.success) {
 			await dispatch(fetchMorePostSucceedAction(res.data.data, res.data.pagination.current_page));
 		}
@@ -44,7 +46,7 @@ export const fetchTrendingPostThunk = () => async (dispatch) => {
 	try {
 		await dispatch(fetchTrendingPostRequestedAction());
 		const res = await axios.get(
-			`${process.env.API_URL}/trending-posts?per_page=${process.env.LIMIT_PAGE_TRENDING_POST}`
+			`${process.env.NEXT_PUBLIC_API_URL}/trending-posts?per_page=${process.env.LIMIT_PAGE_TRENDING_POST}`
 		);
 		if (res.data.success) {
 			await dispatch(fetchTrendingPostSucceedAction(res.data.data));

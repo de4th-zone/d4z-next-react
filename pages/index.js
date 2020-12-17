@@ -71,7 +71,7 @@ const Index = ({ fetchPost, fetchMorePostThunk, fetchTrendingPost, fetchCategory
 				<div className="row">
 					<div className="col-lg-3 order-lg-2">
 						<div className="sticky-top">
-							<h3 className="mb-2">Categories</h3>
+							<h3 className="mb-2">Categories{process.env.API_URL}</h3>
 							<ListGroup fetchCategory={fetchCategory} />
 							<h3 className="my-2">Top tags</h3>
 							<Badge as="a" value="Programing" to="/programing" />
