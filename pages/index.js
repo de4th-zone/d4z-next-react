@@ -41,35 +41,21 @@ const Index = ({ fetchTag, fetchCategory, fetchTrendingPost, fetchPost, fetchMor
 			<div className="container">
 				<h1 className="my-4">Trending posts</h1>
 				<div className="row">
-					{fetchTrendingPost.isLoading ? (
-						<div className="col-12 mb-4">
-							<Loading />
-						</div>
+					{isEmpty(fetchTrendingPost.post) ? (
+						<div className="col-12 mb-4">No posts</div>
 					) : (
 						<>
-							{fetchTrendingPost.isError ? (
-								<div className="col-12 mb-4">{fetchTrendingPost.errorMessage}</div>
-							) : (
-								<>
-									{isEmpty(fetchTrendingPost.post) ? (
-										<div className="col-12 mb-4">No posts</div>
-									) : (
-										<>
-											{fetchTrendingPost.post.map((node) => (
-												<div className="col-12 col-md-6 col-lg-4 mb-4" key={node.id}>
-													<PostCard
-														title={node.title}
-														excerpt={node.excerpt}
-														created_at={node.created_at}
-														to="/post/[id]/[slug]"
-														as={`/post/${node.id}/${node.slug}`}
-													/>
-												</div>
-											))}
-										</>
-									)}
-								</>
-							)}
+							{fetchTrendingPost.post.map((node) => (
+								<div className="col-12 col-md-6 col-lg-4 mb-4" key={node.id}>
+									<PostCard
+										title={node.title}
+										excerpt={node.excerpt}
+										created_at={node.created_at}
+										to="/post/[id]/[slug]"
+										as={`/post/${node.id}/${node.slug}`}
+									/>
+								</div>
+							))}
 						</>
 					)}
 				</div>

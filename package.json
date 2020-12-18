@@ -17,6 +17,7 @@
 		"next": "10.0.3",
 		"next-on-netlify": "^2.6.3",
 		"next-redux-wrapper": "^6.0.2",
+		"nprogress": "^0.2.0",
 		"react": "^17.0.1",
 		"react-bootstrap": "1.4.0",
 		"react-dom": "^17.0.1",

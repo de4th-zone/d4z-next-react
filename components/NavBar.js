@@ -51,13 +51,13 @@ const NavBar = ({ fetchCategory }) => {
 						<Dropdown as={NavItem}>
 							<Dropdown.Toggle as={NavLink} id="dropdown-custom-1" className="d-flex align-items-center">
 								<img
-									src="https://i.pinimg.com/236x/3b/80/98/3b8098ccad8c037f82827c97630fc4d5.jpg"
+									src="https://avatars1.githubusercontent.com/u/57558120?s=460&u=edcf8c9d01f9f5b76c1c6e30d6c775ec147cc434&v=4"
 									width={40}
 									height={40}
 									className="rounded-circle mr-1"
-									alt="thucdaik"
+									alt="Admin"
 								/>
-								thucdaik
+								Admin
 							</Dropdown.Toggle>
 							<Dropdown.Menu align="right">
 								<Dropdown.Item>Profile</Dropdown.Item>

@@ -26,3 +26,11 @@ body {
 .bg-custom {
 	background-color: rgba(0, 0, 0, 0.9);
 }
+
+.user-post .user {
+	line-height: 1.3;
+}
+
+.user-post .time {
+	line-height: 1.3;
+}

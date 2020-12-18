@@ -18,13 +18,12 @@ import axios from 'axios';
 
 export const fetchPostThunk = () => async (dispatch) => {
 	try {
-		await dispatch(fetchPostRequestedAction());
 		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts?per_page=${process.env.PER_PAGE_HOME}`);
 		if (res.data.success) {
 			await dispatch(fetchPostSucceedAction(res.data.data, res.data.pagination.current_page));
 		}
 	} catch (err) {
-		await dispatch(fetchPostFailedAction(err));
+		await dispatch(fetchPostFailedAction(err.message));
 	}
 };
 
@@ -38,7 +37,7 @@ export const fetchMorePostThunk = (page) => async (dispatch) => {
 			await dispatch(fetchMorePostSucceedAction(res.data.data, res.data.pagination.current_page));
 		}
 	} catch (err) {
-		await dispatch(fetchPostFailedAction(err));
+		await dispatch(fetchPostFailedAction(err.message));
 	}
 };
 
@@ -48,7 +47,6 @@ export const fetchPostResetedThunk = () => (dispatch) => {
 
 export const fetchTrendingPostThunk = () => async (dispatch) => {
 	try {
-		await dispatch(fetchTrendingPostRequestedAction());
 		const res = await axios.get(
 			`${process.env.NEXT_PUBLIC_API_URL}/trending-posts?per_page=${process.env.LIMIT_PAGE_TRENDING_POST}`
 		);
@@ -56,7 +54,7 @@ export const fetchTrendingPostThunk = () => async (dispatch) => {
 			await dispatch(fetchTrendingPostSucceedAction(res.data.data));
 		}
 	} catch (err) {
-		await dispatch(fetchTrendingPostFailedAction(err));
+		await dispatch(fetchTrendingPostFailedAction(err.message));
 	}
 };
 
@@ -66,13 +64,13 @@ export const fetchTrendingPostResetedThunk = () => (dispatch) => {
 
 export const singlePostThunk = (id) => async (dispatch) => {
 	try {
-		dispatch(singlePostRequestedAction());
+		await dispatch(singlePostRequestedAction());
 		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${id}`);
 		if (res.data.success) {
-			dispatch(singlePostSucceedAction(res.data.data));
+			await dispatch(singlePostSucceedAction(res.data.data));
 		}
 	} catch (err) {
-		dispatch(singlePostFailedAction(err.message));
+		await dispatch(singlePostFailedAction(err.message));
 	}
 };
 
