@@ -15,7 +15,7 @@ const SinglePost = ({ fetchCategory, fetchTag, singlePost }) => {
 		<>
 			<NavBar fetchCategory={fetchCategory} />
 			<div className="container">
-				<ol className="breadcrumb mt-4">
+				<ol className="breadcrumb my-4">
 					<li className="breadcrumb-item">
 						<Link href="/">
 							<a>Home</a>

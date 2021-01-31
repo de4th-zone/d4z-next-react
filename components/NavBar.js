@@ -7,7 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import NavItem from 'react-bootstrap/NavItem';
 import NavLink from 'react-bootstrap/NavLink';
 
-const NavBar = ({ fetchCategory }) => {
+const NavBar = ({ login, fetchCategory }) => {
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="light" variant="light" fixed="top" className="shadow-sm">
 			<Container>
@@ -48,33 +48,38 @@ const NavBar = ({ fetchCategory }) => {
 								))}
 							</Dropdown.Menu>
 						</Dropdown>
-						<Dropdown as={NavItem}>
-							<Dropdown.Toggle as={NavLink} id="dropdown-custom-1" className="d-flex align-items-center">
-								<img
-									src="https://avatars1.githubusercontent.com/u/57558120?s=460&u=edcf8c9d01f9f5b76c1c6e30d6c775ec147cc434&v=4"
-									width={40}
-									height={40}
-									className="rounded-circle mr-1"
-									alt="Admin"
-								/>
-								Admin
-							</Dropdown.Toggle>
-							<Dropdown.Menu align="right">
-								<Dropdown.Item>Profile</Dropdown.Item>
-								<Dropdown.Divider />
-								<Dropdown.Item>Logout</Dropdown.Item>
-							</Dropdown.Menu>
-						</Dropdown>
-						<Nav.Item>
-							<Link href="/register" passHref>
-								<Nav.Link>Register</Nav.Link>
-							</Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Link href="/login" passHref>
-								<Nav.Link>Login</Nav.Link>
-							</Link>
-						</Nav.Item>
+						{login.isAuthenticated ? (
+							<Dropdown as={NavItem}>
+								<Dropdown.Toggle as={NavLink} id="dropdown-custom-1" className="d-flex align-items-center">
+									<img
+										src="https://avatars1.githubusercontent.com/u/57558120?s=460&u=edcf8c9d01f9f5b76c1c6e30d6c775ec147cc434&v=4"
+										width={35}
+										height={35}
+										className="rounded-circle mr-1"
+										alt="Admin"
+									/>
+									Admin
+								</Dropdown.Toggle>
+								<Dropdown.Menu align="right">
+									<Dropdown.Item>Profile</Dropdown.Item>
+									<Dropdown.Divider />
+									<Dropdown.Item>Logout</Dropdown.Item>
+								</Dropdown.Menu>
+							</Dropdown>
+						) : (
+							<>
+								<Nav.Item>
+									<Link href="/register" passHref>
+										<Nav.Link>Register</Nav.Link>
+									</Link>
+								</Nav.Item>
+								<Nav.Item>
+									<Link href="/login" passHref>
+										<Nav.Link>Login</Nav.Link>
+									</Link>
+								</Nav.Item>
+							</>
+						)}
 					</Nav>
 				</Navbar.Collapse>
 			</Container>

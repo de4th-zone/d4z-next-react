@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import NProgress from 'nprogress';
 import Router from 'next/router';
 import Error from 'next/error';
 import { wrapper } from '../redux/store';
+import { setUserThunk } from '../redux/thunks/authThunk';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'nprogress/nprogress.css';
 import '../styles/app.css';
@@ -20,10 +23,14 @@ Router.events.on('routeChangeStart', (url) => {
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-const App = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps, setUserThunk }) => {
 	if (pageProps.error) {
 		return <Error statusCode={pageProps.error.statusCode} title={pageProps.error.message} />;
 	}
+	useEffect(() => {
+		setUserThunk();
+		return () => {};
+	}, []);
 	return <Component {...pageProps} />;
 };
 
@@ -35,4 +42,7 @@ const App = ({ Component, pageProps }) => {
 	};
 }; */
 
-export default wrapper.withRedux(App);
+export default compose(
+	wrapper.withRedux, // HOC wrapper
+	connect(null, { setUserThunk }) // function that returns wrapper
+)(App);
