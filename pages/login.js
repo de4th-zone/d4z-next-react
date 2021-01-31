@@ -1,16 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { wrapper } from '../redux/store';
-import { fetchCategoryThunk } from '../redux/thunks/categoryThunk';
-import { loginThunk } from '../redux/thunks/authThunk';
+import { loginThunk, setUserThunk } from '../redux/thunks/authThunk';
+import { redirectToHome } from '../helpers/redirectToPage';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import InputForm from '../components/InputForm';
 
 const Login = ({ loginThunk, login, fetchCategory }) => {
+	const router = useRouter();
 	const initialValues = {
 		user_name: '',
 		password: ''
@@ -24,7 +26,7 @@ const Login = ({ loginThunk, login, fetchCategory }) => {
 			user_name: values.user_name,
 			password: values.password
 		};
-		loginThunk(user);
+		loginThunk(user, router);
 	};
 	return (
 		<>
@@ -116,8 +118,9 @@ const Login = ({ loginThunk, login, fetchCategory }) => {
 	);
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
-	await store.dispatch(fetchCategoryThunk());
+export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
+	await setUserThunk(ctx);
+	await redirectToHome(ctx);
 });
 
 const mapStateToProps = (state) => ({

@@ -27,13 +27,6 @@ const initialState = {
 
 const categoryReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case HYDRATE:
-			const { fetchCategory, singleCategory } = action.payload.categories;
-			return {
-				...state,
-				fetchCategory,
-				singleCategory
-			};
 		case FETCH_CATEGORY_REQUESTED:
 			return {
 				...state,

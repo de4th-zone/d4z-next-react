@@ -27,13 +27,6 @@ const initialState = {
 
 const tagReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case HYDRATE:
-			const { fetchTag, singleTag } = action.payload.tags;
-			return {
-				...state,
-				fetchTag,
-				singleTag
-			};
 		case FETCH_TAG_REQUESTED:
 			return {
 				...state,

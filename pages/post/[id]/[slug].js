@@ -2,18 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import { wrapper } from '../../../redux/store';
-import { fetchCategoryThunk } from '../../../redux/thunks/categoryThunk';
 import { fetchTagThunk } from '../../../redux/thunks/tagThunk';
 import { singlePostThunk } from '../../../redux/thunks/postThunk';
+import { setUserThunk } from '../../../redux/thunks/authThunk';
 import NavBar from '../../../components/NavBar';
 import Footer from '../../../components/Footer';
 import SideBar from '../../../components/SideBar';
 import moment from 'moment';
 
-const SinglePost = ({ fetchCategory, fetchTag, singlePost }) => {
+const SinglePost = ({ login, fetchCategory, fetchTag, singlePost }) => {
 	return (
 		<>
-			<NavBar fetchCategory={fetchCategory} />
+			<NavBar fetchCategory={fetchCategory} login={login} />
 			<div className="container">
 				<ol className="breadcrumb my-4">
 					<li className="breadcrumb-item">
@@ -119,13 +119,14 @@ const SinglePost = ({ fetchCategory, fetchTag, singlePost }) => {
 	);
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(async ({ store, params }) => {
-	await store.dispatch(fetchCategoryThunk());
-	await store.dispatch(fetchTagThunk());
-	await store.dispatch(singlePostThunk(params.id));
+export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
+	await setUserThunk(ctx);
+	await ctx.store.dispatch(fetchTagThunk());
+	await ctx.store.dispatch(singlePostThunk(ctx.params.id));
 });
 
 const mapStateToProps = (state) => ({
+	login: state.auth.login,
 	fetchCategory: state.categories.fetchCategory,
 	fetchTag: state.tags.fetchTag,
 	singlePost: state.posts.singlePost

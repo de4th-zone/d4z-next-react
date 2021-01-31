@@ -3,9 +3,9 @@ import Head from 'next/head';
 import { connect } from 'react-redux';
 import isEmpty from '../helpers/isEmpty';
 import { wrapper } from '../redux/store';
-import { fetchCategoryThunk } from '../redux/thunks/categoryThunk';
 import { fetchTagThunk } from '../redux/thunks/tagThunk';
 import { fetchTrendingPostThunk, fetchPostThunk, fetchMorePostThunk } from '../redux/thunks/postThunk';
+import { setUserThunk } from '../redux/thunks/authThunk';
 import NavBar from '../components/NavBar';
 import Carousel from '../components/Carousel';
 import PostCard from '../components/PostCard';
@@ -13,7 +13,7 @@ import Loading from '../components/Loading';
 import Footer from '../components/Footer';
 import SideBar from '../components/SideBar';
 
-const Index = ({ fetchTag, fetchCategory, fetchTrendingPost, fetchPost, fetchMorePostThunk }) => {
+const Index = ({ login, fetchTag, fetchCategory, fetchTrendingPost, fetchPost, fetchMorePostThunk }) => {
 	const handleClick = (page) => {
 		fetchMorePostThunk(page);
 	};
@@ -36,7 +36,7 @@ const Index = ({ fetchTag, fetchCategory, fetchTrendingPost, fetchPost, fetchMor
 				<meta name="twitter:card" content="summary_large_image" />
 				<meta name="twitter:image" content="https://de4thzone.com/d4z_1.jpg" />
 			</Head>
-			<NavBar fetchCategory={fetchCategory} />
+			<NavBar fetchCategory={fetchCategory} login={login} />
 			<Carousel />
 			<div className="container">
 				<h1 className="my-4">Trending posts</h1>
@@ -119,14 +119,15 @@ const Index = ({ fetchTag, fetchCategory, fetchTrendingPost, fetchPost, fetchMor
 	);
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
-	await store.dispatch(fetchCategoryThunk());
-	await store.dispatch(fetchTagThunk());
-	await store.dispatch(fetchTrendingPostThunk());
-	await store.dispatch(fetchPostThunk());
+export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
+	await setUserThunk(ctx);
+	await ctx.store.dispatch(fetchTagThunk());
+	await ctx.store.dispatch(fetchTrendingPostThunk());
+	await ctx.store.dispatch(fetchPostThunk());
 });
 
 const mapStateToProps = (state) => ({
+	login: state.auth.login,
 	fetchCategory: state.categories.fetchCategory,
 	fetchTag: state.tags.fetchTag,
 	fetchTrendingPost: state.posts.fetchTrendingPost,

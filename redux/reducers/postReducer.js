@@ -49,14 +49,6 @@ const initialState = {
 };
 const postReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case HYDRATE:
-			const { fetchPost, fetchTrendingPost, singlePost } = action.payload.posts;
-			return {
-				...state,
-				fetchPost,
-				fetchTrendingPost,
-				singlePost
-			};
 		case FETCH_POST_REQUESTED:
 			return {
 				...state,

@@ -4,15 +4,16 @@ import { useRouter, withRouter } from 'next/router';
 import Link from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { setUserThunk } from '../redux/thunks/authThunk';
+import { redirectToHome } from '../helpers/redirectToPage';
 import { wrapper } from '../redux/store';
-import { fetchCategoryThunk } from '../redux/thunks/categoryThunk';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import InputForm from '../components/InputForm';
 import SelectForm from '../components/SelectForm';
 import CheckBoxForm from '../components/CheckBoxForm';
 
-const Register = ({ fetchCategory }) => {
+const Register = ({ login, fetchCategory }) => {
 	const router = useRouter();
 	const initialValues = {
 		first_name: '',
@@ -82,7 +83,7 @@ const Register = ({ fetchCategory }) => {
 	};
 	return (
 		<>
-			<NavBar fetchCategory={fetchCategory} />
+			<NavBar fetchCategory={fetchCategory} login={login} />
 			<div className="container">
 				<ol className="breadcrumb my-4">
 					<li className="breadcrumb-item">
@@ -208,11 +209,13 @@ const Register = ({ fetchCategory }) => {
 	);
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(async ({ store, params }) => {
-	await store.dispatch(fetchCategoryThunk());
+export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
+	await setUserThunk(ctx);
+	await redirectToHome(ctx);
 });
 
 const mapStateToProps = (state) => ({
+	login: state.auth.login,
 	fetchCategory: state.categories.fetchCategory
 });
 
