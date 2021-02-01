@@ -13,6 +13,7 @@ import Router from 'next/router';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from '../../helpers/setAuthToken';
 import { setCookie, getCookie, removeCookie } from '../../helpers/cookie';
+import redirectToPage from '../../helpers/redirectToPage';
 
 export const registerThunk = (user, history) => async (dispatch) => {
 	try {
@@ -39,11 +40,12 @@ export const loginThunk = (user, router) => async (dispatch) => {
 		const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, user);
 		if (res.data.success) {
 			const { token } = res.data;
+			localStorage.setItem('token', token);
 			setCookie('token', token);
 			setAuthToken(token);
 			const decoded = jwt_decode(token);
 			dispatch(loginSucceedAction(true, decoded));
-			router.push('/');
+			//router.push('/');
 		} else {
 			dispatch(loginFailedAction(res.data.errorMessage));
 		}
@@ -63,6 +65,12 @@ export const logoutThunk = (router) => (dispatch) => {
 	router.push('/login');
 };
 
+export const test = () => (dispatch) => {
+	setAuthToken(getCookie('token'));
+	const decoded = jwt_decode(getCookie('token'));
+	dispatch(loginSucceedAction(true, decoded));
+};
+
 export const setUserThunk = (ctx) => {
 	if (ctx.req) {
 		if (ctx.req.headers.cookie) {
@@ -78,28 +86,11 @@ export const setUserThunk = (ctx) => {
 			} */
 		}
 	} else {
-		const token = ctx.store.getState().auth.login.isAuthenticated;
+		/* const token = ctx.store.getState().auth.login.isAuthenticated;
 		if (token && ctx.pathname === '/register') {
 			setTimeout(function () {
 				Router.push('/');
 			}, 0);
-		}
+		} */
 	}
 };
-
-/* export const setUserThunk = (router) => (dispatch) => {
-	if (localStorage.getItem('jwtToken')) {
-		console.log('nice');
-		setAuthToken(localStorage.jwtToken);
-		const decoded = jwt_decode(localStorage.jwtToken);
-		dispatch(loginSucceedAction(true, decoded));
-		const currentTime = Date.now() / 1000;
-		if (decoded.exp < currentTime) {
-			console.log('none');
-			localStorage.removeItem('jwtToken');
-			setAuthToken(false);
-			dispatch(loginResetedAction());
-			router.push('/login');
-		}
-	}
-}; */

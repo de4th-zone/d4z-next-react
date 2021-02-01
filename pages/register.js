@@ -5,15 +5,14 @@ import Link from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { setUserThunk } from '../redux/thunks/authThunk';
-import { redirectToHome } from '../helpers/redirectToPage';
+import redirectToPage from '../helpers/redirectToPage';
 import { wrapper } from '../redux/store';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
+import MainLayout from '../layouts/MainLayout';
 import InputForm from '../components/InputForm';
 import SelectForm from '../components/SelectForm';
 import CheckBoxForm from '../components/CheckBoxForm';
 
-const Register = ({ login, fetchCategory }) => {
+const Register = ({ login }) => {
 	const router = useRouter();
 	const initialValues = {
 		first_name: '',
@@ -83,140 +82,151 @@ const Register = ({ login, fetchCategory }) => {
 	};
 	return (
 		<>
-			<NavBar fetchCategory={fetchCategory} login={login} />
-			<div className="container">
-				<ol className="breadcrumb my-4">
-					<li className="breadcrumb-item">
-						<a href="/">Home</a>
-					</li>
-					<li className="breadcrumb-item active">Register</li>
-				</ol>
-				<div className="row">
-					<div className="col-lg-8 col-md-10 mx-auto">
-						<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-							{({ values, errors, touched, handleSubmit, setFieldValue, setFieldTouched }) => (
-								<form onSubmit={handleSubmit}>
-									<h2 class="text-center mb-3">Register</h2>
-									<div className="form-group">
-										<InputForm
-											label="First name"
-											placeholder="First name"
-											id="first_name"
-											name="first_name"
-											type="text"
-										/>
-									</div>
-									<div className="form-group">
-										<InputForm label="Last name" placeholder="Last name" id="last_name" name="last_name" type="text" />
-									</div>
-									<div className="form-group">
-										<InputForm
-											label="User name"
-											placeholder="User name"
-											id="user_name"
-											name="user_name"
-											type="text"
-											isError={register.isError}
-											errorMessage={register.errorMessage.user_name}
-										/>
-									</div>
-									<div className="form-group">
-										<InputForm
-											label="Email"
-											placeholder="Email"
-											id="email"
-											name="email"
-											type="text"
-											isError={register.isError}
-											errorMessage={register.errorMessage.email}
-										/>
-									</div>
-									<div className="form-group">
-										<InputForm label="Password" placeholder="Password" id="password" name="password" type="password" />
-									</div>
-									<div className="form-group">
-										<InputForm
-											label="Confirm password"
-											placeholder="Confirm password"
-											id="password_confirm"
-											name="password_confirm"
-											type="password"
-										/>
-									</div>
-									<div className="form-group">
-										<InputForm
-											label="Phone number"
-											placeholder="84 336 077 131"
-											id="phone_number"
-											name="phone_number"
-											type="text"
-										/>
-									</div>
-									<div className="form-group">
-										<InputForm label="Address" placeholder="Address" id="address" name="address" type="text" />
-									</div>
-									<div className="form-group">
-										<SelectForm label="Gender" name="gender">
-											<option value="">Select gender</option>
-											<option value="male">Male</option>
-											<option value="female">Female</option>
-											<option value="orther">Other</option>
-										</SelectForm>
-									</div>
-									<div className="form-group">
-										<InputForm label="Image" placeholder="Avatar" id="avatar" name="avatar" type="text" />
-									</div>
-									<div className="form-group form-check">
-										<CheckBoxForm label="Agree to terms of service" id="agreeterms" name="agreeterms" />
-									</div>
-									<div className="text-center">
-										{register.isLoading ? (
-											<button type="submit" className="btn btn-success" disabled>
-												<span className="spinner-grow spinner-grow-sm mr-1" role="status" aria-hidden="true" />
-												Register
-											</button>
-										) : (
-											<button type="submit" className="btn btn-success">
-												Register
-											</button>
-										)}
-										<p className="mt-3">or register with:</p>
-										<a href="#!" className="btn-floating btn-fb btn-sm mr-1">
-											<i className="fa fa-facebook" />
-										</a>
-										<a href="#!" className="btn-floating btn-tw btn-sm mr-1">
-											<i className="fa fa-twitter" />
-										</a>
-										<a href="#!" className="btn-floating btn-li btn-sm mr-1">
-											<i className="fa fa-linkedin" />
-										</a>
-										<a href="#!" className="btn-floating btn-git btn-sm">
-											<i className="fa fa-github" />
-										</a>
-										<hr className="mt-4" />
-										<p>
-											By clicking <em>Register</em> you agree to our <a href="#!">terms of service</a>
-										</p>
-									</div>
-								</form>
-							)}
-						</Formik>
+			<MainLayout>
+				<div className="container">
+					<ol className="breadcrumb my-4">
+						<li className="breadcrumb-item">
+							<a href="/">Home</a>
+						</li>
+						<li className="breadcrumb-item active">Register</li>
+					</ol>
+					<div className="row">
+						<div className="col-lg-8 col-md-10 mx-auto">
+							<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+								{({ values, errors, touched, handleSubmit, setFieldValue, setFieldTouched }) => (
+									<form onSubmit={handleSubmit}>
+										<h2 class="text-center mb-3">Register</h2>
+										<div className="form-group">
+											<InputForm
+												label="First name"
+												placeholder="First name"
+												id="first_name"
+												name="first_name"
+												type="text"
+											/>
+										</div>
+										<div className="form-group">
+											<InputForm
+												label="Last name"
+												placeholder="Last name"
+												id="last_name"
+												name="last_name"
+												type="text"
+											/>
+										</div>
+										<div className="form-group">
+											<InputForm
+												label="User name"
+												placeholder="User name"
+												id="user_name"
+												name="user_name"
+												type="text"
+												isError={register.isError}
+												errorMessage={register.errorMessage.user_name}
+											/>
+										</div>
+										<div className="form-group">
+											<InputForm
+												label="Email"
+												placeholder="Email"
+												id="email"
+												name="email"
+												type="text"
+												isError={register.isError}
+												errorMessage={register.errorMessage.email}
+											/>
+										</div>
+										<div className="form-group">
+											<InputForm
+												label="Password"
+												placeholder="Password"
+												id="password"
+												name="password"
+												type="password"
+											/>
+										</div>
+										<div className="form-group">
+											<InputForm
+												label="Confirm password"
+												placeholder="Confirm password"
+												id="password_confirm"
+												name="password_confirm"
+												type="password"
+											/>
+										</div>
+										<div className="form-group">
+											<InputForm
+												label="Phone number"
+												placeholder="84 336 077 131"
+												id="phone_number"
+												name="phone_number"
+												type="text"
+											/>
+										</div>
+										<div className="form-group">
+											<InputForm label="Address" placeholder="Address" id="address" name="address" type="text" />
+										</div>
+										<div className="form-group">
+											<SelectForm label="Gender" name="gender">
+												<option value="">Select gender</option>
+												<option value="male">Male</option>
+												<option value="female">Female</option>
+												<option value="orther">Other</option>
+											</SelectForm>
+										</div>
+										<div className="form-group">
+											<InputForm label="Image" placeholder="Avatar" id="avatar" name="avatar" type="text" />
+										</div>
+										<div className="form-group form-check">
+											<CheckBoxForm label="Agree to terms of service" id="agreeterms" name="agreeterms" />
+										</div>
+										<div className="text-center">
+											{register.isLoading ? (
+												<button type="submit" className="btn btn-success" disabled>
+													<span className="spinner-grow spinner-grow-sm mr-1" role="status" aria-hidden="true" />
+													Register
+												</button>
+											) : (
+												<button type="submit" className="btn btn-success">
+													Register
+												</button>
+											)}
+											<p className="mt-3">or register with:</p>
+											<a href="#!" className="btn-floating btn-fb btn-sm mr-1">
+												<i className="fa fa-facebook" />
+											</a>
+											<a href="#!" className="btn-floating btn-tw btn-sm mr-1">
+												<i className="fa fa-twitter" />
+											</a>
+											<a href="#!" className="btn-floating btn-li btn-sm mr-1">
+												<i className="fa fa-linkedin" />
+											</a>
+											<a href="#!" className="btn-floating btn-git btn-sm">
+												<i className="fa fa-github" />
+											</a>
+											<hr className="mt-4" />
+											<p>
+												By clicking <em>Register</em> you agree to our <a href="#!">terms of service</a>
+											</p>
+										</div>
+									</form>
+								)}
+							</Formik>
+						</div>
 					</div>
 				</div>
-			</div>
-			<Footer />
+			</MainLayout>
 		</>
 	);
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
-	await setUserThunk(ctx);
-	await redirectToHome(ctx);
+	//await setUserThunk(ctx);
+	await redirectToPage(ctx, '/');
 });
 
 const mapStateToProps = (state) => ({
-	login: state.auth.login,
-	fetchCategory: state.categories.fetchCategory
+	login: state.auth.login
 });
 
 const mapDispatchToProps = {};

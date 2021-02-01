@@ -7,7 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import NavItem from 'react-bootstrap/NavItem';
 import NavLink from 'react-bootstrap/NavLink';
 
-const NavBar = ({ login, fetchCategory }) => {
+const NavBar = ({ login, fetchCategory, handleLogoutSubmit }) => {
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="light" variant="light" fixed="top" className="shadow-sm">
 			<Container>
@@ -63,7 +63,7 @@ const NavBar = ({ login, fetchCategory }) => {
 								<Dropdown.Menu align="right">
 									<Dropdown.Item>Profile</Dropdown.Item>
 									<Dropdown.Divider />
-									<Dropdown.Item>Logout</Dropdown.Item>
+									<Dropdown.Item onClick={handleLogoutSubmit}>Logout</Dropdown.Item>
 								</Dropdown.Menu>
 							</Dropdown>
 						) : (
@@ -80,6 +80,16 @@ const NavBar = ({ login, fetchCategory }) => {
 								</Nav.Item>
 							</>
 						)}
+						<Nav.Item>
+							<Link href="/register" passHref>
+								<Nav.Link>Register</Nav.Link>
+							</Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Link href="/login" passHref>
+								<Nav.Link>Login</Nav.Link>
+							</Link>
+						</Nav.Item>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>

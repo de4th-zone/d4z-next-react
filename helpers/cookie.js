@@ -2,6 +2,7 @@ import cookie from 'js-cookie';
 
 export const setCookie = (key, value) => {
 	if (process.browser) {
+		console.log('okk');
 		cookie.set(key, value, {
 			expires: 1
 		});

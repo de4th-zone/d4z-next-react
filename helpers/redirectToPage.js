@@ -1,27 +1,19 @@
 import Router from 'next/router';
 
-export const redirectToHome = (ctx) => {
+const redirectToPage = (destination, { ctx, status } = {}) => {
 	const isAuthenticated = ctx.store.getState().auth.login.isAuthenticated;
 	if (isAuthenticated) {
 		if (ctx.res) {
-			ctx.res.writeHead(302, { Location: '/' });
+			ctx.res.writeHead(status || 302, { Location: destination });
 			ctx.res.end();
-			ctx.res.finished = true;
 		} else {
-			Router.push('/');
+			if (destination[0] === '/' && destination[1] !== '/') {
+				Router.push(destination);
+			} else {
+				window.location = destination;
+			}
 		}
 	}
 };
 
-export const redirectToLogin = (ctx) => {
-	const isAuthenticated = ctx.store.getState().auth.login.isAuthenticated;
-	if (isAuthenticated) {
-		if (ctx.res) {
-			ctx.res.writeHead(302, { Location: '/login' });
-			ctx.res.end();
-			ctx.res.finished = true;
-		} else {
-			Router.push('/login');
-		}
-	}
-};
+export default redirectToPage;
