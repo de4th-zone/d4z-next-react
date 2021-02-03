@@ -1,41 +1,168 @@
-# With Redux Wrapper Example
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
 
-Usually splitting your app state into `pages` feels natural but sometimes you'll want to have global state for your app. This is an example on how you can use redux that also works with our universal rendering approach. This is just a way you can do it but it's not the only one.
+[![GitHub contributors](https://img.shields.io/github/contributors/Naereen/StrapDown.js.svg)](https://github.com/de4th-zone/d4z-react-redux/graphs/contributors/)
+[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/de4th-zone/d4z-react-redux/issues/)
+[![GitHub version](https://badge.fury.io/gh/Naereen%2FStrapDown.js.svg)](https://github.com/de4th-zone/d4z-react-redux)
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
-## Deploy your own
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/de4th-zone/d4z-next-react">
+    <img src="https://i.imgur.com/6jxXR32.jpg" alt="d4z" width="166" height="166">
+  </a>
+  <h3 align="center">Example Next Blog</h3>
+  <p align="center">
+    <a href="https://github.com/de4th-zone/d4z-next-react"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://de4thzone.com" target="_blank" rel="noopener noreferrer">View Demo</a>
+    ·
+    <a href="https://github.com/de4th-zone/d4z-next-react/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/de4th-zone/d4z-next-react/issues">Request Feature</a>
+  </p>
+</p>
 
-Deploy the example using [Vercel](https://vercel.com):
+<!-- TABLE OF CONTENTS -->
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/next.js/tree/canary/examples/with-redux-wrapper)
+## Table of Contents
 
-## How to use
+- [About the Project](#about-the-project)
+  - [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+<!-- ABOUT THE PROJECT -->
 
-```bash
-npx create-next-app --example with-redux-wrapper with-redux-wrapper-app
-# or
-yarn create next-app --example with-redux-wrapper with-redux-wrapper-app
+## About The Project
+
+<!--[![Product Name Screen Shot][product-screenshot]](https://github.com/de4th-zone/d4z-react-redux)-->
+
+**Libraries used in the project**
+
+### Built With
+
+- [Next](https://github.com/vercel/next.js)
+- [React](https://github.com/facebook/react)
+- [Redux](https://github.com/reduxjs/redux)
+- [Redux Wrapper for Next.js](https://github.com/kirill-konshin/next-redux-wrapper)
+- ...
+
+<!-- GETTING STARTED -->
+
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Prerequisites
+
+- npm v6.14.8
+
+- node v14.5.0
+
+### Installation
+
+1. Open cmd
+
+2. Clone the repo
+
+```sh
+git clone https://github.com/de4th-zone/d4z-next-react.git
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+3. Open folder
 
-## Notes
+```sh
+cd d4z-next-react-master
+```
 
-In the first example we are going to display a digital clock that updates every second. The first render is happening in the server and then the browser will take over. To illustrate this, the server rendered clock will have a different background color than the client one.
+4. Install NPM packages
 
-![](http://i.imgur.com/JCxtWSj.gif)
+```sh
+npm install
+```
 
-Our page is located at `pages/index.js` so it will map the route `/`. To get the initial data for rendering we are implementing the static method `getInitialProps`, initializing the redux store and dispatching the required actions until we are ready to return the initial state to be rendered. Since the component is wrapped with `next-redux-wrapper`, the component is automatically connected to Redux and wrapped with `react-redux Provider`, that allows us to access redux state immediately and send the store down to children components so they can access to the state when required.
+4. Run project
 
-For safety it is recommended to wrap all pages, no matter if they use Redux or not, so that you should not care about it anymore in all child components.
+```sh
+npm run dev
+```
 
-This example wraps pages individually using `getStaticProps` and `getServerSideProps`. See the [full example](https://github.com/kirill-konshin/next-redux-wrapper#usage) in the Next Redux Wrapper repository, you can also opt-in to use `App.getInitialProps` and `Page.getInitialProps` as before.
+<!-- USAGE EXAMPLES -->
 
-To pass the initial state from the server to the client we pass it as a prop called `initialState` so then it's available when the client takes over.
+## Usage
 
-The trick here for supporting universal redux is to separate the cases for the client and the server. When we are on the server we want to create a new store every time, otherwise different users data will be mixed up. If we are in the client we want to use always the same store. That's what we accomplish on `store.js`
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-The clock, under `components/Clock.js`, has access to the state using the `connect` function from `react-redux`. In this case Clock is a direct child from the page but it could be deep down the render tree.
+_For more examples, please refer to the [Documentation](https://github.com/de4th-zone/d4z-next-react)_
 
-The second example, under `components/AddCount.js`, shows a simple add counter function with a class component implementing a common redux pattern of mapping state and props. Again, the first render is happening in the server and instead of starting the count at 0, it will dispatch an action in redux that starts the count at 1. This continues to highlight how each navigation triggers a server render first and then a client render second, when you navigate between pages.
+<!-- ROADMAP -->
+
+## Roadmap
+
+See the [open issues](https://github.com/de4th-zone/d4z-next-react/issues) for a list of proposed features (and known issues).
+
+<!-- CONTRIBUTING -->
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<!-- LICENSE -->
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+<!-- CONTACT -->
+
+## Contact
+
+Your Name - [@de4th_zone](https://twitter.com/de4th_zone) - nguyenthucofficial@gmail.com
+
+Project Link: [https://github.com/de4th-zone/d4z-next-react](https://github.com/de4th-zone/d4z-next-react)
+
+<!-- ACKNOWLEDGEMENTS -->
+
+## Acknowledgements
+
+- []()
+- []()
+- []()
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo.svg?style=flat-square
+[contributors-url]: https://github.com/github_username/repo/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/github_username/repo.svg?style=flat-square
+[forks-url]: https://github.com/github_username/repo/network/members
+[stars-shield]: https://img.shields.io/github/stars/github_username/repo.svg?style=flat-square
+[stars-url]: https://github.com/github_username/repo/stargazers
+[issues-shield]: https://img.shields.io/github/issues/github_username/repo.svg?style=flat-square
+[issues-url]: https://github.com/github_username/repo/issues
+[license-shield]: https://img.shields.io/github/license/github_username/repo.svg?style=flat-square
+[license-url]: https://github.com/github_username/repo/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/github_username
+[product-screenshot]: images/screenshot.png

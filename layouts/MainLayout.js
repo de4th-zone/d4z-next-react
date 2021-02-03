@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
-import { wrapper } from '../redux/store';
 import { logoutThunk } from '../redux/thunks/authThunk';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
@@ -20,8 +19,6 @@ const MainLayout = ({ login, fetchCategory, logoutThunk, children }) => {
 		</>
 	);
 };
-
-export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {});
 
 const mapStateToProps = (state) => ({
 	fetchCategory: state.categories.fetchCategory,

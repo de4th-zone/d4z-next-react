@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import { wrapper } from '../redux/store';
-import { loginThunk, setUserThunk } from '../redux/thunks/authThunk';
-import redirectToPage from '../helpers/redirectToPage';
+import { loginThunk } from '../redux/thunks/authThunk';
+import { fetchCategoryThunk } from '../redux/thunks/categoryThunk';
 import InputForm from '../components/InputForm';
 import MainLayout from '../layouts/MainLayout';
+import Authentication from '../helpers/Authentication';
 
 const Login = ({ loginThunk, login }) => {
 	const router = useRouter();
@@ -41,7 +41,7 @@ const Login = ({ loginThunk, login }) => {
 						<div className="col-lg-8 col-md-10 mx-auto">
 							<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
 								<Form>
-									<h2 class="text-center mb-3">Login now</h2>
+									<h2 className="text-center mb-3">Login now</h2>
 									<div className="form-group">
 										<InputForm
 											label="User name"
@@ -116,10 +116,9 @@ const Login = ({ loginThunk, login }) => {
 	);
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
-	await setUserThunk(ctx);
-	await redirectToPage('/', { ctx, status: 301 });
-});
+Login.getInitialProps = async (ctx) => {
+	await ctx.store.dispatch(fetchCategoryThunk());
+};
 
 const mapStateToProps = (state) => ({
 	login: state.auth.login
@@ -129,4 +128,4 @@ const mapDispatchToProps = {
 	loginThunk
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Authentication(connect(mapStateToProps, mapDispatchToProps)(Login), 'login');

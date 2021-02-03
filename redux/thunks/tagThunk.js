@@ -12,7 +12,7 @@ import axios from 'axios';
 
 export const fetchTagThunk = () => async (dispatch) => {
 	try {
-		dispatch(fetchTagRequestedAction());
+		//dispatch(fetchTagRequestedAction());
 		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/tags`);
 		if (res.data.success) {
 			dispatch(fetchTagSucceedAction(res.data.data));

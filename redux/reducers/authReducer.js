@@ -8,7 +8,6 @@ import {
 	LOGIN_FAILED,
 	LOGIN_RESETED
 } from '../constants/authConstant';
-import { HYDRATE } from 'next-redux-wrapper';
 
 const initialState = {
 	register: {

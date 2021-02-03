@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter, withRouter } from 'next/router';
 import Link from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { setUserThunk } from '../redux/thunks/authThunk';
-import redirectToPage from '../helpers/redirectToPage';
-import { wrapper } from '../redux/store';
+import { fetchCategoryThunk } from '../redux/thunks/categoryThunk';
+import { registerThunk } from '../redux/thunks/authThunk';
 import MainLayout from '../layouts/MainLayout';
 import InputForm from '../components/InputForm';
 import SelectForm from '../components/SelectForm';
 import CheckBoxForm from '../components/CheckBoxForm';
+import Authentication from '../helpers/Authentication';
 
-const Register = ({ login }) => {
+const Register = ({ register, registerThunk }) => {
 	const router = useRouter();
 	const initialValues = {
 		first_name: '',
@@ -73,12 +73,7 @@ const Register = ({ login }) => {
 			gender: values.gender,
 			avatar: values.avatar
 		};
-		//registerThunk(user, router);
-	};
-	const register = {
-		isError: false,
-		errorMessage: {},
-		isLoading: false
+		registerThunk(user, router);
 	};
 	return (
 		<>
@@ -95,7 +90,7 @@ const Register = ({ login }) => {
 							<Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
 								{({ values, errors, touched, handleSubmit, setFieldValue, setFieldTouched }) => (
 									<form onSubmit={handleSubmit}>
-										<h2 class="text-center mb-3">Register</h2>
+										<h2 className="text-center mb-3">Register</h2>
 										<div className="form-group">
 											<InputForm
 												label="First name"
@@ -220,15 +215,14 @@ const Register = ({ login }) => {
 	);
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
-	//await setUserThunk(ctx);
-	await redirectToPage(ctx, '/');
-});
+Register.getInitialProps = async (ctx) => {
+	await ctx.store.dispatch(fetchCategoryThunk());
+};
 
 const mapStateToProps = (state) => ({
-	login: state.auth.login
+	register: state.auth.register
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { registerThunk };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Register));
+export default Authentication(connect(mapStateToProps, mapDispatchToProps)(withRouter(Register)), 'register');

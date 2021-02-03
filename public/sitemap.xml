@@ -15,4 +15,8 @@
     <loc>http://localhost:3000/post/[id]/[slug]</loc>
     <changefreq>hourly</changefreq>
   </url>
+  <url>
+    <loc>http://localhost:3000/profile/[id]/[slug]</loc>
+    <changefreq>hourly</changefreq>
+  </url>
 </urlset>

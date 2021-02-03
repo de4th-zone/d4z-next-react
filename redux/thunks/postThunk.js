@@ -64,7 +64,7 @@ export const fetchTrendingPostResetedThunk = () => (dispatch) => {
 
 export const singlePostThunk = (id) => async (dispatch) => {
 	try {
-		await dispatch(singlePostRequestedAction());
+		//await dispatch(singlePostRequestedAction());
 		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${id}`);
 		if (res.data.success) {
 			await dispatch(singlePostSucceedAction(res.data.data));

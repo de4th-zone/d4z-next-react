@@ -13,11 +13,18 @@ const bindMiddleware = (middleware) => {
 
 const reducer = (state, action) => {
 	if (action.type === HYDRATE) {
+		const { categories, posts, tags } = action.payload;
+		const { login } = action.payload.auth;
 		const nextState = {
-			...state, // use previous state
-			...action.payload // apply delta from hydration
+			...state,
+			auth: {
+				...state.auth,
+				login
+			},
+			categories,
+			posts,
+			tags
 		};
-		//if (state.posts.posts) nextState.posts.posts = state.posts.posts; // preserve count value on client side navigation
 		return nextState;
 	} else {
 		return rootReducer(state, action);

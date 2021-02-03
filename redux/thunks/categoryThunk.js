@@ -12,7 +12,7 @@ import axios from 'axios';
 
 export const fetchCategoryThunk = () => async (dispatch) => {
 	try {
-		dispatch(fetchCategoryRequestedAction());
+		//dispatch(fetchCategoryRequestedAction());
 		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
 		if (res.data.success) {
 			dispatch(fetchCategorySucceedAction(res.data.data));

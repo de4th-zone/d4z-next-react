@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import NProgress from 'nprogress';
 import Router from 'next/router';
 import Error from 'next/error';
 import { wrapper } from '../redux/store';
-import { fetchCategoryThunk } from '../redux/thunks/categoryThunk';
-import { test } from '../redux/thunks/authThunk';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'nprogress/nprogress.css';
 import '../styles/app.css';
@@ -24,19 +22,14 @@ Router.events.on('routeChangeStart', (url) => {
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-const App = ({ Component, pageProps, test }) => {
+const App = ({ Component, pageProps }) => {
 	if (pageProps.error) {
 		return <Error statusCode={pageProps.error.statusCode} title={pageProps.error.message} />;
 	}
-	useEffect(() => {
-		//test();
-		return () => {};
-	}, [test]);
 	return <Component {...pageProps} />;
 };
 
 App.getInitialProps = async ({ Component, ctx }) => {
-	await ctx.store.dispatch(fetchCategoryThunk());
 	return {
 		pageProps: {
 			...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {})
@@ -46,6 +39,6 @@ App.getInitialProps = async ({ Component, ctx }) => {
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = { test };
+const mapDispatchToProps = {};
 
 export default compose(wrapper.withRedux, connect(mapStateToProps, mapDispatchToProps))(App);

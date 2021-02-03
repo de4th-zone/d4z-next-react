@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { wrapper } from '../../../redux/store';
 import { fetchTagThunk } from '../../../redux/thunks/tagThunk';
 import { singlePostThunk } from '../../../redux/thunks/postThunk';
-import { setUserThunk } from '../../../redux/thunks/authThunk';
+import { fetchCategoryThunk } from '../../../redux/thunks/categoryThunk';
 import MainLayout from '../../../layouts/MainLayout';
-import NavBar from '../../../components/NavBar';
-import Footer from '../../../components/Footer';
 import SideBar from '../../../components/SideBar';
 import moment from 'moment';
+import Authentication from '../../../helpers/Authentication';
 
-const SinglePost = ({ login, fetchCategory, fetchTag, singlePost }) => {
+const SinglePost = ({ fetchCategory, fetchTag, singlePost }) => {
+	const router = useRouter();
+
 	return (
 		<>
 			<MainLayout>
@@ -119,11 +121,11 @@ const SinglePost = ({ login, fetchCategory, fetchTag, singlePost }) => {
 	);
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
-	//await setUserThunk(ctx);
+SinglePost.getInitialProps = async (ctx) => {
+	await ctx.store.dispatch(fetchCategoryThunk());
 	await ctx.store.dispatch(fetchTagThunk());
-	await ctx.store.dispatch(singlePostThunk(ctx.params.id));
-});
+	await ctx.store.dispatch(singlePostThunk(ctx.query.id));
+};
 
 const mapStateToProps = (state) => ({
 	fetchCategory: state.categories.fetchCategory,
@@ -133,4 +135,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SinglePost);
+export default Authentication(connect(mapStateToProps, mapDispatchToProps)(SinglePost));

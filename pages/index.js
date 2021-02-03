@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import isEmpty from '../helpers/isEmpty';
-import { wrapper } from '../redux/store';
 import { fetchTagThunk } from '../redux/thunks/tagThunk';
 import { fetchTrendingPostThunk, fetchPostThunk, fetchMorePostThunk } from '../redux/thunks/postThunk';
-import { setUserThunk } from '../redux/thunks/authThunk';
+import { fetchCategoryThunk } from '../redux/thunks/categoryThunk';
 import Carousel from '../components/Carousel';
 import PostCard from '../components/PostCard';
 import Loading from '../components/Loading';
 import SideBar from '../components/SideBar';
 import MainLayout from '../layouts/MainLayout';
+import Authentication from '../helpers/Authentication';
 
 const Index = ({ fetchTag, fetchCategory, fetchTrendingPost, fetchPost, fetchMorePostThunk }) => {
+	const router = useRouter();
 	const handleClick = (page) => {
 		fetchMorePostThunk(page);
 	};
@@ -118,12 +120,12 @@ const Index = ({ fetchTag, fetchCategory, fetchTrendingPost, fetchPost, fetchMor
 	);
 };
 
-export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
-	await setUserThunk(ctx);
-	//await ctx.store.dispatch(fetchTagThunk());
-	//await ctx.store.dispatch(fetchTrendingPostThunk());
-	//await ctx.store.dispatch(fetchPostThunk());
-});
+Index.getInitialProps = async (ctx) => {
+	await ctx.store.dispatch(fetchCategoryThunk());
+	await ctx.store.dispatch(fetchTagThunk());
+	await ctx.store.dispatch(fetchTrendingPostThunk());
+	await ctx.store.dispatch(fetchPostThunk());
+};
 
 const mapStateToProps = (state) => ({
 	fetchCategory: state.categories.fetchCategory,
@@ -136,4 +138,4 @@ const mapDispatchToProps = {
 	fetchMorePostThunk
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Index);
+export default Authentication(connect(mapStateToProps, mapDispatchToProps)(Index));
