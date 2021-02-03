@@ -144,7 +144,7 @@ Facebook - [Nguyễn Thức](https://www.facebook.com/d4z.d4z.d4z.d4z)
 
 Email - nguyenthucofficial@gmail.com
 
-Project Link: [https://github.com/de4th-zone/d4z-next-react](https://github.com/de4th-zone/d4z-next-react)
+Other Project: [https://github.com/de4th-zone](https://github.com/de4th-zone)
 
 <!-- ACKNOWLEDGEMENTS -->
 
