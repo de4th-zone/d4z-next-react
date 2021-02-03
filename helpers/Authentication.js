@@ -23,33 +23,37 @@ const redirect = (res, location) => {
 const Authentication = (WrappedComponent, type) => {
 	const hocComponent = ({ ...props }) => <WrappedComponent {...props} />;
 	hocComponent.getInitialProps = async (ctx) => {
-		const data = {};
-		const token = getCookie('token', ctx.req);
-		setAuthToken(token);
-		const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/me`);
+		try {
+			const data = {};
+			const token = getCookie('token', ctx.req);
+			setAuthToken(token);
+			const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/me`);
 
-		if (type === 'profile' && !res.data.success) {
-			redirect(ctx.res, login);
-		} else if ((type === 'login' || type === 'register') && token && res.data.success) {
-			redirect(ctx.res, home);
-		} else if (WrappedComponent.getInitialProps) {
-			const wrappedProps = await WrappedComponent.getInitialProps({ ...ctx, auth: data });
-			if (token) {
-				if (res.data.success) {
-					const decoded = jwt_decode(token);
-					await ctx.store.dispatch(loginSucceedAction(true, decoded));
-				} else {
-					setAuthToken(false);
-					removeCookie('token');
-					await ctx.store.dispatch(loginResetedAction());
-					if (ctx.pathname !== '/login') {
-						redirect(ctx.res, login);
+			if (type === 'profile' && !res.data.success) {
+				redirect(ctx.res, login);
+			} else if ((type === 'login' || type === 'register') && token && res.data.success) {
+				redirect(ctx.res, home);
+			} else if (WrappedComponent.getInitialProps) {
+				const wrappedProps = await WrappedComponent.getInitialProps({ ...ctx, auth: data });
+				if (token) {
+					if (res.data.success) {
+						const decoded = jwt_decode(token);
+						await ctx.store.dispatch(loginSucceedAction(true, decoded));
+					} else {
+						setAuthToken(false);
+						removeCookie('token');
+						await ctx.store.dispatch(loginResetedAction());
+						if (ctx.pathname !== '/login') {
+							redirect(ctx.res, login);
+						}
 					}
 				}
+				return { ...wrappedProps, data };
 			}
-			return { ...wrappedProps, data };
+			return { data };
+		} catch (err) {
+			console.log(err.message);
 		}
-		return { data };
 	};
 	return hocComponent;
 };
