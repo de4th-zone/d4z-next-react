@@ -1,15 +1,12 @@
 import {
-	fetchPostRequestedAction,
 	fetchPostSucceedAction,
 	fetchMorePostRequestedAction,
 	fetchMorePostSucceedAction,
 	fetchPostFailedAction,
 	fetchPostResetedAction,
-	fetchTrendingPostRequestedAction,
 	fetchTrendingPostSucceedAction,
 	fetchTrendingPostFailedAction,
 	fetchTrendingPostResetedAction,
-	singlePostRequestedAction,
 	singlePostSucceedAction,
 	singlePostFailedAction,
 	singlePostResetedAction
@@ -64,7 +61,6 @@ export const fetchTrendingPostResetedThunk = () => (dispatch) => {
 
 export const singlePostThunk = (id) => async (dispatch) => {
 	try {
-		//await dispatch(singlePostRequestedAction());
 		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${id}`);
 		if (res.data.success) {
 			await dispatch(singlePostSucceedAction(res.data.data));

@@ -1,9 +1,7 @@
 import {
-	fetchTagRequestedAction,
 	fetchTagSucceedAction,
 	fetchTagFailedAction,
 	fetchTagResetedAction,
-	singleTagRequestedAction,
 	singleTagSucceedAction,
 	singleTagFailedAction,
 	singleTagResetedAction
@@ -12,7 +10,6 @@ import axios from 'axios';
 
 export const fetchTagThunk = () => async (dispatch) => {
 	try {
-		//dispatch(fetchTagRequestedAction());
 		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/tags`);
 		if (res.data.success) {
 			dispatch(fetchTagSucceedAction(res.data.data));
@@ -28,7 +25,6 @@ export const fetchTagResetedThunk = () => (dispatch) => {
 
 export const singleTagThunk = (id) => async (dispatch) => {
 	try {
-		dispatch(singleTagRequestedAction());
 		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/tags/${id}`);
 		if (res.data.success) {
 			dispatch(singleTagSucceedAction(res.data.data));

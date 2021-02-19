@@ -1,9 +1,7 @@
 import {
-	fetchCategoryRequestedAction,
 	fetchCategorySucceedAction,
 	fetchCategoryFailedAction,
 	fetchCategoryResetedAction,
-	singleCategoryRequestedAction,
 	singleCategorySucceedAction,
 	singleCategoryFailedAction,
 	singleCategoryResetedAction
@@ -12,7 +10,6 @@ import axios from 'axios';
 
 export const fetchCategoryThunk = () => async (dispatch) => {
 	try {
-		//dispatch(fetchCategoryRequestedAction());
 		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
 		if (res.data.success) {
 			dispatch(fetchCategorySucceedAction(res.data.data));
@@ -28,7 +25,6 @@ export const fetchCategoryResetedThunk = () => (dispatch) => {
 
 export const singleCategoryThunk = (id) => async (dispatch) => {
 	try {
-		dispatch(singleCategoryRequestedAction());
 		const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories/${id}`);
 		if (res.data.success) {
 			dispatch(singleCategorySucceedAction(res.data.data));

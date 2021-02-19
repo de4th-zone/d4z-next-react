@@ -61,7 +61,7 @@ const NavBar = ({ login, fetchCategory, handleLogoutSubmit }) => {
 									{login.user.user_name}
 								</Dropdown.Toggle>
 								<Dropdown.Menu align="right">
-									<Link href="/profile/666/@thucdaik" passHref>
+									<Link href={`/profile/${login.user.id}/${login.user.user_name}`} passHref>
 										<Dropdown.Item>Profile</Dropdown.Item>
 									</Link>
 									<Dropdown.Divider />
