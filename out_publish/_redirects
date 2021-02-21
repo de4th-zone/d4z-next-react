@@ -1,7 +1,0 @@
-# Next-on-Netlify Redirects
-/  /.netlify/functions/next_index  200
-/login  /.netlify/functions/next_login  200
-/register  /.netlify/functions/next_register  200
-/_next/image*  url=:url w=:width q=:quality  /.netlify/functions/next_image?url=:url&w=:width&q=:quality  200
-/post/:id/:slug  /.netlify/functions/next_post_id_slug  200
-/profile/:id/:user_name  /.netlify/functions/next_profile_id_user_name  200
