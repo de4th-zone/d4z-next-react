@@ -1,22 +1,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://localhost:3000</loc>
+    <loc>https://de4thzone.com</loc>
     <changefreq>hourly</changefreq>
   </url>
   <url>
-    <loc>http://localhost:3000/login</loc>
+    <loc>https://de4thzone.com/login</loc>
     <changefreq>hourly</changefreq>
   </url>
   <url>
-    <loc>http://localhost:3000/register</loc>
+    <loc>https://de4thzone.com/register</loc>
     <changefreq>hourly</changefreq>
   </url>
   <url>
-    <loc>http://localhost:3000/post/[id]/[slug]</loc>
+    <loc>https://de4thzone.com/post/[id]/[slug]</loc>
     <changefreq>hourly</changefreq>
   </url>
   <url>
-    <loc>http://localhost:3000/profile/[id]/[slug]</loc>
+    <loc>https://de4thzone.com/profile/[id]/[user_name]</loc>
     <changefreq>hourly</changefreq>
   </url>
 </urlset>

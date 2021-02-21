@@ -82,16 +82,6 @@ const NavBar = ({ login, fetchCategory, handleLogoutSubmit }) => {
 								</Nav.Item>
 							</>
 						)}
-						<Nav.Item>
-							<Link href="/register" passHref>
-								<Nav.Link>Register</Nav.Link>
-							</Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Link href="/login" passHref>
-								<Nav.Link>Login</Nav.Link>
-							</Link>
-						</Nav.Item>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
